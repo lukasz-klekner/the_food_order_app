@@ -1,6 +1,8 @@
 import { memo } from 'react'
 import styled from 'styled-components'
 
+import MealItem from './MealItem/MealItem'
+
 const DUMMY_MEALS = [
   {
     id: 'm1',
@@ -29,7 +31,9 @@ const DUMMY_MEALS = [
 ]
 
 const AvailableMeals = ({ className }) => {
-  const mealsList = DUMMY_MEALS.map((meal) => <li>{meal.name}</li>)
+  const mealsList = DUMMY_MEALS.map(({ id, name, description, price }) => (
+    <MealItem key={id} name={name} description={description} price={price} />
+  ))
 
   return (
     <section className={className}>
