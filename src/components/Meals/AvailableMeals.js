@@ -55,5 +55,5 @@ const Styled = styled(Memoized)`
   }
 `
 
-Styled.displayName = 'HeaderCartButton'
+Styled.displayName = 'AvailableMeals'
 export default Styled

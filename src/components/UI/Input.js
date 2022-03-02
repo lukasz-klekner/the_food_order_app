@@ -27,5 +27,5 @@ const Styled = styled(Memoized)`
     padding-left: 0.5rem;
   }
 `
-Styled.displayName = 'Card'
+Styled.displayName = 'Input'
 export default Styled

@@ -1,7 +1,9 @@
 import { memo } from 'react'
 import styled from 'styled-components'
 
-const MealItem = ({ className, name, price, description }) => {
+import MealItemForm from './MealItemForm'
+
+const MealItem = ({ className, id, name, price, description }) => {
   const priceRounded = `$${price.toFixed(2)}`
 
   return (
@@ -11,7 +13,9 @@ const MealItem = ({ className, name, price, description }) => {
         <div>{description}</div>
         <div>{priceRounded}</div>
       </div>
-      <div></div>
+      <div>
+        <MealItemForm id={id} />
+      </div>
     </li>
   )
 }
