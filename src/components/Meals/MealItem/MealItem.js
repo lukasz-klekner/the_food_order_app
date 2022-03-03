@@ -1,10 +1,14 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import styled from 'styled-components'
+import CartContext from '../../../context/CartContext'
 
 import MealItemForm from './MealItemForm'
 
 const MealItem = ({ className, id, name, price, description }) => {
+  const { addItem } = useContext(CartContext)
   const priceRounded = `$${price.toFixed(2)}`
+
+  const addToCartHandler = (amount) => addItem({ id, name, amount, price })
 
   return (
     <li className={className}>
@@ -14,7 +18,7 @@ const MealItem = ({ className, id, name, price, description }) => {
         <div>{priceRounded}</div>
       </div>
       <div>
-        <MealItemForm id={id} />
+        <MealItemForm id={id} onAddToCart={addToCartHandler} />
       </div>
     </li>
   )

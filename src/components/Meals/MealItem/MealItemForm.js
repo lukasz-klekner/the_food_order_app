@@ -1,24 +1,43 @@
-import { memo } from 'react'
+import { memo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import Input from '../../UI/Input'
 
-const MealItemForm = ({ className, id }) => (
-  <form className={className}>
-    <Input
-      label='Amount'
-      input={{
-        id: 'amount_' + id,
-        type: 'number',
-        min: '1',
-        max: '5',
-        step: '1',
-        defaultValue: '1',
-      }}
-    />
-    <button>+ Add</button>
-  </form>
-)
+const MealItemForm = ({ className, id, onAddToCart }) => {
+  const [amountIsValid, setIsAmountValid] = useState(true)
+  const amountInputRef = useRef()
+
+  const submitHandler = (event) => {
+    event.preventDefault()
+
+    const amount = amountInputRef.current.value
+    const amountNumber = +amount
+
+    if (amount.trim().length === 0 || amountNumber < 1 || amountNumber > 5)
+      return setIsAmountValid(false)
+
+    onAddToCart(amountNumber)
+  }
+
+  return (
+    <form className={className} onSubmit={submitHandler}>
+      <Input
+        ref={amountInputRef}
+        label='Amount'
+        input={{
+          id: 'amount_' + id,
+          type: 'number',
+          min: '1',
+          max: '5',
+          step: '1',
+          defaultValue: '1',
+        }}
+      />
+      <button>+ Add</button>
+      {!amountIsValid && <p>Please enter a valid amount (1-5).</p>}
+    </form>
+  )
+}
 
 const Memoized = memo(MealItemForm)
 const Styled = styled(Memoized)`

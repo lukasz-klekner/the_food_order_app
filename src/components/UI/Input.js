@@ -1,12 +1,12 @@
-import { memo } from 'react'
+import { memo, forwardRef } from 'react'
 import styled from 'styled-components'
 
-const Input = ({ className, input, label }) => (
+const Input = forwardRef(({ className, input, label }, ref) => (
   <div className={className}>
     <label htmlFor={input.id}>{label}</label>
-    <input {...input} />
+    <input ref={ref} {...input} />
   </div>
-)
+))
 
 const Memoized = memo(Input)
 const Styled = styled(Memoized)`
