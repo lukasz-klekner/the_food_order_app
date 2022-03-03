@@ -1,12 +1,31 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import styled from 'styled-components'
+
+import CartContext from '../../context/CartContext'
 import Modal from '../UI/Modal'
+import CartItem from './CartItem'
 
 const Cart = ({ className, onClose }) => {
+  const { items, totalAmount } = useContext(CartContext)
+
+  const totalAmountRounded = `$${totalAmount.toFixed(2)}`
+  const hasItems = items.length > 0
+
+  const cartItemRemoveHandler = (id) => {}
+
+  const cartItemAddHandler = (item) => {}
+
   const cartItems = (
     <ul>
-      {[{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }].map((item) => (
-        <li>{item.name}</li>
+      {items.map(({ id, name, price, amount }) => (
+        <CartItem
+          key={id}
+          name={name}
+          price={price}
+          amount={amount}
+          onRemove={(id) => cartItemRemoveHandler(id)}
+          onAdd={(item) => cartItemAddHandler(item)}
+        />
       ))}
     </ul>
   )
@@ -16,11 +35,11 @@ const Cart = ({ className, onClose }) => {
       {cartItems}
       <div>
         <span>Total Amount</span>
-        <span>35.62</span>
+        <span>{totalAmountRounded}</span>
       </div>
       <div>
         <button onClick={onClose}>Close</button>
-        <button>Order</button>
+        {hasItems && <button>Order</button>}
       </div>
     </Modal>
   )
