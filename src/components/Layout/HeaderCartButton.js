@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import CartIcon from '../Cart/CartIcon'
 
-const HeaderCartButton = ({ className }) => (
-  <button className={className}>
+const HeaderCartButton = ({ className, onShowCart }) => (
+  <button className={className} onClick={onShowCart}>
     <span>
       <CartIcon />
     </span>

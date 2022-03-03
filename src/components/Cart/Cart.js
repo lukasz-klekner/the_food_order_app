@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import styled from 'styled-components'
+import Modal from '../UI/Modal'
 
-const Cart = ({ className }) => {
+const Cart = ({ className, onClose }) => {
   const cartItems = (
     <ul>
       {[{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }].map((item) => (
@@ -11,17 +12,17 @@ const Cart = ({ className }) => {
   )
 
   return (
-    <div className={className}>
+    <Modal className={className} onClick={onClose}>
       {cartItems}
       <div>
         <span>Total Amount</span>
         <span>35.62</span>
       </div>
       <div>
-        <button>Close</button>
+        <button onClick={onClose}>Close</button>
         <button>Order</button>
       </div>
-    </div>
+    </Modal>
   )
 }
 
