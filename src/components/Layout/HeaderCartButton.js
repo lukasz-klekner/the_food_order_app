@@ -1,17 +1,27 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import styled from 'styled-components'
+import CartContext from '../../context/CartContext'
 
 import CartIcon from '../Cart/CartIcon'
 
-const HeaderCartButton = ({ className, onShowCart }) => (
-  <button className={className} onClick={onShowCart}>
-    <span>
-      <CartIcon />
-    </span>
-    <span>Your Cart</span>
-    <span>3</span>
-  </button>
-)
+const HeaderCartButton = ({ className, onShowCart }) => {
+  const { items } = useContext(CartContext)
+
+  const numberOfCartItems = items.reduce(
+    (curNumber, item) => curNumber + item.amount,
+    0
+  )
+
+  return (
+    <button className={className} onClick={onShowCart}>
+      <span>
+        <CartIcon />
+      </span>
+      <span>Your Cart</span>
+      <span>{numberOfCartItems}</span>
+    </button>
+  )
+}
 
 const Memoized = memo(HeaderCartButton)
 const Styled = styled(Memoized)`
